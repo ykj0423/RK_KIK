@@ -1,0 +1,59 @@
+﻿・最新のレイアウトに変更する
+
+・チェックする
+　　include
+　　require
+　　require_once
+・https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js
+・serach.php
+    ◆日付をデフォルトでチェックする
+    ◇カレンダー（クリック／再クリック）
+	◇昼、夜の時間帯も対応
+    　  ・画像を交換
+        ◇クリック時に黄色にする
+        ◇縦横制御（産業振興センター）
+    ・選択解除
+        ・localStrageクリア
+        ・削除
+・Colmnsプラグイン
+・WEB受付№の採番
+
+・configの場所おかしいmodelの配下にある。
+
+・利用規約どこで遷移？
+
+・[機能]
+・メール送信
+・ポップアップがあったほうがいい
+
+
+・戻った場合
+◎・○マークを復活しなければならない
+・ローカルストレージをクリアしてはいけない
+
+・serach.php
+	◎・前へ次へボタン
+	・jkn1,jkn2が仮の値。本来はマスタから
+	◎・最後に余分なヘッダーが表示されている。
+
+・end.php
+	◎・SQLServerにどうやって登録する?confirm.phpから
+	◎・予約データ、予約明細データの作成
+	・utimeの値が違う？ロケールの問題か-
+		
+	
+・top.html
+	・デザイン変更
+	
+・全体
+	◎ukenoの採番方法（WEB）
+	◎Azureに環境作成
+	・localstrageよりwebStorageか
+	・全体的にクラス化する
+	・WEBDBとローカルDBの付け替え可能とする。dt_roomr , ks_jkntai、web_ksjkntai変更可能にする
+	・BootStrap datepicker
+
+・検証
+	・RKで予約した時のレコードと比較する
+	
+

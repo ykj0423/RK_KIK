@@ -1,0 +1,75 @@
+.bg-head{ background:#eee;margin:0}
+.alert-default{background-color:#e3e3e3}
+.midashi{color:red;margin-right:10px;}
+/*global navi custom	color:yellow*/
+.nav-custom {background-color: #f4c583;border-color: #edd3a1;margin-bottom:5px}
+.nav-custom li {border-left: 1px solid #edd3a1;}
+a.navbar-brand,.nav-custom li a , .navbar-brand {color: #000;}
+.nav-custom li a:hover,a.navbar-brand:hover,a.nav-brand:focus {background-color: #f7994a}
+div.noboder{border:none !important}
+.pt12{padding-top:12px !important}
+.dgray {background:#a9a9a9 !important}
+.selcol{background:#ffd700}
+.can,.call{background:#fff}
+
+/* 空き検索 */
+.rsv_serach div.col-sun,#rsv_serach div.col-sun{color:#ff0000}
+.rsv_serach div.col-sat,#rsv_serach div.col-sat{color:#0000cd}
+
+/* 空き表示 */
+
+.rsv table,#rsv table{table-layout: fixed}
+#rsv tr td ,.rsv tr td{text-align:center;font-size:16px;height:40px;font-weight:normal}
+#rsv tr td img,.rsv tr td img{width:100%}
+
+.rsv tr th,#rsv tr th{background-color:#e3e3e3;font-weight:normal}
+.rsv tr.head th,#rsv tr.head th{text-align:center;font-weight:normal;vertical-align:bottom;}
+.rsv .btn,#rsv .btn{margin-left:5px}
+.rsv .f120,#rsv .f120{font-size:120%}
+.rsv .f150,#rsv .f150{font-size:150%}
+.rsv tr th.col-sun,#rsv tr th.col-sun{color:#ff0000}
+.rsv tr th.col-sat,#rsv tr th.col-sat{color:#0000cd}
+.rsv tr th.bg-another,#rsv tr th.bg-another{background:#ded0d2}
+.rsv tr.fff th,#rsv tr.fff th{background: #fff;border:1px solid #fff;; border-bottom: 1px solid #c0c0c0;}
+
+/*入力*/
+#rsv_input tr td {font-weight:normal}
+#rsv_input tr th{background-color:#e3e3e3;font-weight:normal}
+
+
+.ml5{margin-left:5px}
+.ml10{margin-left:10px}
+.ml20{margin-left:20px}
+.mb10{margin-bottom:10px}
+.mr48p{margin-right:500px;}
+.mr20{margin-right:20px;}
+
+.f120{font-size:120%}
+.btn-logout {
+    background-color: #fafad2;
+    color: #000;
+}
+
+.hanrei {
+    border: 1px solid transparent;
+    margin-bottom: 10px;
+    padding: 10px;
+    padding-top:0;
+}
+
+.status1{color:#0000ff}/*申請中*/
+.status2{color:#ff0000}/*受付不可*/
+.status3{color:#008000}/*仮予約*/
+.status4{color:#000}/*失効*/
+.status5{color:#000}/*取消*/
+.status6{color:#000080}/*予約*/
+.status7{color:#6666B2}
+
+div#srch{
+ background:#eae1cf;
+ margin-bottom:30px;
+
+}
+
+div#srch hr{ margin-bottom:0;}
+div#srch table td{ background: #fff;}

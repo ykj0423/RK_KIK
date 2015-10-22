@@ -1,0 +1,236 @@
+<?php
+require_once("validate.php");
+class Kyaku extends validate {
+	 
+	 public function get_user_info( $userid ) 
+	 {
+	 
+		$serverName = "ITWEB1";
+		$connectionInfo = array( "Database"=>"RK_KIK_DB1", "UID"=>"sa", "PWD"=>"" );
+		$conn = sqlsrv_connect( $serverName, $connectionInfo);
+
+		if( $conn === false ) {
+			 die( print_r( sqlsrv_errors(), true));
+		}
+
+		/* --------------------*/
+		/*  顧客情報取得処理  */
+		/* --------------------*/
+		$sql = "SELECT * FROM web_mkyaku WHERE userid =  ". $userid;
+
+		$stmt = sqlsrv_query( $conn, $sql );
+		
+		if( $stmt === false) {
+			ie( print_r( sqlsrv_errors(), true) );
+		}
+
+		while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
+			/* セッションに入れるのがあまりいい形ではないがとりあえず */
+			$_SESSION[ 'webrk' ][ 'kyacd' ] = $row[ 'kyacd' ];
+			$_SESSION[ 'webrk' ][ 'dannm' ] = $row[ 'dannm' ];
+			$_SESSION[ 'webrk' ][ 'dannm2' ] = $row[ 'dannm2' ];
+			$_SESSION[ 'webrk' ][ 'pwd' ] = $row[ 'pwd' ];
+			$_SESSION[ 'webrk' ][ 'mail' ] = $row[ 'mail' ];
+			$_SESSION[ 'webrk' ][ 'lastlogin' ] = $row[ 'lastlogin' ];	
+		}
+		
+	 }
+    
+
+	/*--------------------
+    // ログイン処理
+    ---------------------*/
+    public function login(){
+    //function login(){
+        $userid = $_POST['userid'];
+        $pwd = $_POST['pwd'];
+        $rtnAry = array();
+
+        $rtnAry['ErrCd'] = '0';
+        $rtnAry['ErrMsg'] = '';
+        $rtnAry['page'] = $_SESSION['webrk']['selpage'];
+        $rtnAry['userid'] = $userid;
+        $rtnAry['pwd'] = $pwd;
+
+        //未ログイン
+        if (!isset($_SESSION['webrk']['user'])) {//関数の中でセッションを使用しない。引数でとる。
+
+            //送信した入力値のチェック
+            $this->check('userid',$userid,1,'only-eisu',10);
+            $this->check('pwd',$pwd,1,'all-hankaku',10);
+
+            //DBの存在チェック
+            $table=" web_mkyaku ";
+            $field=" * ";
+            $wh=" where userid='".$userid."'";
+            if (empty($this->err)){
+
+                $ret = $this->selectTB($table, $field, $wh);
+                if ($ret['sqlErrCD'] > 0) {
+                    $rtnAry['ErrCd'] = $ret['sqlErrCD'];
+                    $rtnAry['ErrMsg'] = 'SQLエラー：'.$ret['sqlErrCD'].':'.$ret['sqlErrMsg'];
+                    
+                }else{
+                    if ($ret['recCnt'] == 0){ 
+                        $rtnAry['ErrCd'] = '11';
+                        $rtnAry['ErrMsg'] =  '該当するユーザが存在しません';
+                    }else if (!empty($ret['data'][0]['delkb'])){
+                        $rtnAry['ErrCd'] = '12';
+                        $rtnAry['ErrMsg'] =  'ご利用いただけないユーザIDが指定されました';
+                    }else if ($ret['data'][0]['pwd'] != $pwd ){
+                        $rtnAry['ErrCd'] = '13';
+                        $rtnAry['ErrMsg'] =  'パスワードが誤っています';
+                    }else{
+                        $_SESSION['webrk']['user'] = $ret['data'][0];
+                         //問題がなければ、SESSIONに値を設定する						 
+						 //全然よくないがとりあえず使う（RCD返してからにしろ）
+						 
+                         //最終ログイン日を更新する    
+
+                        if (empty($_SESSION['webrk']['user']['lastlogin'])){
+                            $rtnAry['page'] =  'member';
+                        }
+                        $record['lastlogin'] = date('Ymd');
+                        $wh = ' where kyacd = '.$_SESSION['webrk']['user']['kyacd'];
+                        $ret=$this->updateTB($table, $record, $wh);
+                        if (empty($ret['rcd'])) { 
+                            $nextpage = '';
+                            $rtnAry['ErrCd'] = $ret['sqlErrCD'];
+                            $rtnAry['ErrMsg'] =  '更新に失敗しました：'.$ret['sqlErrCD'].':'.$ret['sqlErrMsg'];
+                        } 
+                    }
+                }
+
+                return $rtnAry;
+            }else{
+                $rtnAry['ErrCd'] = '10';
+                $rtnAry['ErrMsg'] =  $this->err['paramErrMsg'][0];
+                return $rtnAry;
+            }
+
+        }else{
+            //ログイン済
+            return $rtnAry;
+        }
+        
+    }
+
+    /*--------------------
+    // ユーザ情報の変更
+    ---------------------*/
+    function Edit($mode){
+
+        // ---- 送信情報の入力情報チェック ----------------
+        $mail = $_POST['mail'];
+        $remail = $_POST['remail'];
+        $passnew = $_POST['passnew'];
+        $passnew2 = $_POST['passnew2'];
+
+        $rtnAry = array();
+        $rtnAry['ErrCd'] = '0';
+        $rtnAry['ErrMsg'] = '';
+        $rtnAry['step'] = 'input';
+        $rtnAry['mail'] = $mail;
+        $rtnAry['remail'] = $remail;
+        $rtnAry['passnew'] = $passnew;
+        $rtnAry['passnew2'] = $passnew2;
+
+        if ($mode == 'first'){
+            $this->check('passnew',$passnew,1,'all-hankaku',10);
+            $this->check('passnew2',$passnew2 ,1,'all-hankaku',10);
+            $this->check('mail',$mail ,0,'mail',60);
+            $this->check('remail',$mail,0,'mail',10);
+
+        }
+        if (empty($this->err)){
+            if ($passnew != $passnew2){
+                $rtnAry['ErrCd']  = '11';
+                $rtnAry['ErrMsg']  = '入力されたパスワードと確認用のパスワードが一致しません';
+            }else if ($pwd != $_SESSION['webrk']['user']['pwd']){
+                $rtnAry['ErrCd']  = '12';
+                $rtnAry['ErrMsg']  = '現在のパスワードが一致しません';
+            }
+        }else{
+            $rtnAry['ErrCd']  = '10';
+            $rtnAry['ErrMsg']  = $this->err['paramErrMsg'][0];
+        }  
+
+        // ---- DB更新 ----------------     
+        if (empty($_POST['regist'])){
+            //確認
+            $rtnAry['step'] = 'confirm';
+            
+        }else{
+            //送信
+            $record = array();
+            $table = ' web_mkyaku ';
+            $record['mail'] = $_POST['mail'];
+            $record['pwd'] = $_POST['passnew'];
+            $wh = ' where kyacd = '.$_SESSION['webrk']['user']['kyacd'];
+
+            $ret=$this->updateTB($table, $record, $wh);
+            if (empty($ret['rcd'])) { 
+                    $rtnAry['ErrCd'] = $ret['sqlErrCD'];
+                    $rtnAry['ErrMsg'] =  '更新に失敗しました：'.$ret['sqlErrCD'].':'.$ret['sqlErrMsg'];
+            }
+            $rtnAry['step'] = 'finish';
+
+        }
+
+        return $rtnAry;
+    }
+
+	public function change_password( $kyacd, $passold, $passnew ){
+		
+		$serverName = "ITWEB1";
+		$connectionInfo = array( "Database"=>"RK_KIK_DB1", "UID"=>"sa", "PWD"=>"" );
+		$conn = sqlsrv_connect( $serverName, $connectionInfo);
+
+		if( $conn === false ) {
+			 die( print_r( sqlsrv_errors(), true));
+		}
+
+		
+		$sql = "SELECT pwd FROM web_mkyaku where kyacd = ".$kyacd;
+		
+		$stmt = sqlsrv_query( $conn, $sql );
+		
+		if( $stmt === false) {
+			die( print_r( sqlsrv_errors(), true) );
+		}
+		
+		$pass_db="";
+
+		while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC) ) {
+			  $pass_db = $row[0];
+		}
+		
+		sqlsrv_free_stmt( $stmt);
+		
+		if( $pass_db == $passold ){
+		}else{
+			
+			echo "パスワードが一致しません。";
+
+		}
+		
+		return false;
+
+
+		$sql = "update web_mkyaku set pwd='".$passnew."' where kyacd = ".$kyacd;
+		$params = array($pass);
+		echo $sql;
+		print_r($params);
+		sqlsrv_query( $conn, $sql );//, $params);
+
+		if( $stmt === false ) {
+			die( print_r( sqlsrv_errors(), true));
+		}
+	
+		return true;
+	}
+
+
+}
+
+?>
