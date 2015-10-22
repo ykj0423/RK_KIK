@@ -22,6 +22,6 @@ if(empty($_SESSION[webrk][user][userid])){
 //$enddt= "2015/10/01";
 //$arr = get_date_array( $sttdt , $enddt ,  array( 0,1,2,3,4,5,6 ) ) ;
 //print_r($arr);
-
+//
 //echo "<br> count is ".count($arr);
 ?>
