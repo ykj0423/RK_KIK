@@ -50,7 +50,7 @@
 	◎Azureに環境作成
 	・localstrageよりwebStorageか
 	・全体的にクラス化する
-	・WEBDBとローカルDBの付け替え可能とする。dt_roomr , ks_jkntai、web_ksjkntai変更可能にする
+	・WEBDBとローカルDBの付け替え可能とする。dt_roomr , ks_jkntai、ks_jkntai変更可能にする
 	・BootStrap datepicker
 
 ・検証

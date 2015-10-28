@@ -5,8 +5,8 @@ class Kyaku extends validate {
 	 public function get_user_info( $userid ) 
 	 {
 	 
-		$serverName = "ITWEB1";
-		$connectionInfo = array( "Database"=>"RK_KIK_DB1", "UID"=>"sa", "PWD"=>"" );
+		$serverName = "WEBRK\SQLEXPRESS";
+		$connectionInfo = array( "Database"=>"RK_KIK_DB1", "UID"=>"sa", "PWD"=>"Webrk_2015" );
 		$conn = sqlsrv_connect( $serverName, $connectionInfo);
 
 		if( $conn === false ) {
@@ -183,8 +183,8 @@ class Kyaku extends validate {
 
 	public function change_password( $kyacd, $passold, $passnew ){
 		
-		$serverName = "ITWEB1";
-		$connectionInfo = array( "Database"=>"RK_KIK_DB1", "UID"=>"sa", "PWD"=>"" );
+		$serverName = "WEBRK\SQLEXPRESS";
+		$connectionInfo = array( "Database"=>"RK_KIK_DB1", "UID"=>"sa", "PWD"=>"Webrk_2015" );
 		$conn = sqlsrv_connect( $serverName, $connectionInfo);
 
 		if( $conn === false ) {

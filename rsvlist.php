@@ -1,8 +1,8 @@
 <?php
 @session_start();
-if(empty($_SESSION['webrk']['user']['userid'])){
-	header("Location : top.php");	
-}
+//if(empty($_SESSION['webrk']['user']['userid'])){
+//	header("Location : top.php");	
+//}
 ?>
 <!DOCTYPE html>
 <html lang="ja">

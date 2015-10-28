@@ -365,7 +365,7 @@ $conErr = $db->connect();
 if ( !empty( $conErr ) ) { echo $conErr;  die(); } //接続不可時は終了
 
 /* 施設分類の取得 */
-$table = 'web_mrmcls';
+$table = 'mm_rmcls';
 $idNm = "code";
 $valNm = "name";
 $wh = '';
@@ -516,14 +516,14 @@ $date_array = get_date_array( $sttdt , $enddt ,  $yobi ) ;
 include('date.php');
 
 /* 施設分類 */
-$table = 'web_mroom';
+$table = 'mt_room';
 $idNm = "rmcd";
 $valNm = "rmnm";
 $wh = '';
 
 //新コード
-//$room = $db->get_web_mroomr( $_POST['bldkb'], $bunrui);//施設区分、施設分類
-$room = $db->get_web_mroomr( $bunrui );//施設区分
+//$room = $db->get_mt_roomr( $_POST['bldkb'], $bunrui);//施設区分、施設分類
+$room = $db->get_mt_roomr( $bunrui );//施設区分
 
 for ($i = 0; $i < ( count( $room ) ) ; $i++ ) {
 	

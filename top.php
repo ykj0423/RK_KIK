@@ -49,7 +49,7 @@ if (!empty($url)){
 <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 <div class="alert alert-warning" role="alert">
 	<p class="lead">ご利用登録されている方はこちら</p>
-    	<input type="submit" class="btn btn-warning btn-lg" name="user_search"role="button" value="空き状況検索・予約申込み　>>">
+    	<input type="submit" class="btn btn-warning btn-lg" name="user_search" role="button" value="空き状況検索・予約申込み　>>">
     	<input type="submit" class="btn btn-warning btn-lg" name="user_rsvlist" role="button" value="予約照会・取消　>>">
     	<input type="submit" class="btn btn-warning btn-lg" name="user_infochange" role="button" value="利用者情報変更　>>">
 </div>

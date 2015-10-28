@@ -143,7 +143,7 @@ class DB
             $ret['sqlErrMsg'] = '';
             
             //$column = "";
-            $sql = 'select rmcd , rmnm , capacity from web_mroom order by rmcd';
+            $sql = 'select rmcd , rmnm , capacity from mt_room order by rmcd';
 
             if (!empty($wh)) { $sql .= $wh; }
             
@@ -201,7 +201,7 @@ class DB
                 $ret['data'][$date] = 0;
             }
             
-            $sql = " select usedt , ukeno from web_ksjkntai ";
+            $sql = " select usedt , ukeno from ks_jkntai ";
             $sql .= " WHERE rmcd = ".$rmcd." AND timekb = ".$timekb." AND usedt >= ".$sttdt." AND usedt <= ".$enddt." AND ukeno <> 0";
             //echo $sql;
             //$sql .= " order by rmcd , usedt ";
@@ -252,7 +252,7 @@ class DB
 		//$usedt = null;
 		//$timekb = null;
 
-		$sql = " SELECT DISTINCT rmcd , usedt, timekb , ukeno FROM web_ksjkntai ";
+		$sql = " SELECT DISTINCT rmcd , usedt, timekb , ukeno FROM ks_jkntai ";
 		//$sql .= " WHERE rmcd = ".$room_array[ $i ]." AND usedt = ".$date_array[ $j ]['yyyy'].$date_array[ $j ]['mm'].$date_array[ $j ]['dd']." AND timekb = ".$k." AND ukeno <> 0";
 		
 		$sql .= " WHERE rmcd IN  ( ";
@@ -553,14 +553,14 @@ class DB
 	//[111] => Array ( [rmnmw] => 多目的ホール [capacity] => 120 )
 	//[121] => Array ( [rmnmw] => トレーニング室 [capacity] => 0 ) ) 
 	-----------------------------------------------------------*/
-	//public function get_web_mroomr( $bldkb, $rmclkb )
-	public function get_web_mroomr( $rmclkb )
+	//public function get_mt_roomr( $bldkb, $rmclkb )
+	public function get_mt_roomr( $rmclkb )
 	{
 	
 		$ret = array();
 
 		//施設コード、WEB名称、定員
-		$sql = "select rmcd , rmnmw , capacity from web_mroom"; 
+		$sql = "select rmcd , rmnmw , capacity from mt_room"; 
 		
 		//if ( !empty ( $bldkb ) ){
 		//	$sql = $sql." where";

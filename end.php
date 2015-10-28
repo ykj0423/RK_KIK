@@ -1,8 +1,8 @@
 <?php
 @session_start();
-if(empty($_SESSION['webrk']['user']['userid'])){
-	header("Location : top.php");	
-}
+//if(empty($_SESSION['webrk']['user']['userid'])){
+//	header("Location : top.php");	
+//}
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -76,8 +76,8 @@ for ( $i = 0; $i < $meisai_count; $i++ ) {
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <?php
-$serverName = "ITWEB1";
-$connectionInfo = array( "Database"=>"RK_KIK_DB1", "UID"=>"sa", "PWD"=>"" );
+$serverName = "WEBRK\SQLEXPRESS";
+$connectionInfo = array( "Database"=>"RK_KIK_DB1", "UID"=>"sa", "PWD"=>"Webrk_2015" );
 $conn = sqlsrv_connect( $serverName, $connectionInfo);
 
 if( $conn === false ) {
@@ -87,7 +87,7 @@ if( $conn === false ) {
 /* --------------------*/
 /*  WEB受付№取得処理  */
 /* --------------------*/
-$sql = "SELECT MAX(webukeno) AS webukeno FROM web_droomr";
+$sql = "SELECT MAX(ukeno) AS webukeno FROM dt_roomr";
 $stmt = sqlsrv_query( $conn, $sql);
 if( $stmt === false ) {
      die( print_r( sqlsrv_errors(), true));
@@ -127,7 +127,7 @@ for ( $i = 0; $i < $meisai_count; $i++ ) {
 		$k = 20;
 	}
 	
-	$sql = "SELECT * FROM web_ksjkntai WHERE usedt = ".$_POST[ 'usedt'.$i ]." AND rmcd = ".$_POST[ 'rmcd'.$i ] ." AND timekb = ".$_POST[ 'timekb'.$i ];
+	$sql = "SELECT * FROM ks_jkntai WHERE usedt = ".$_POST[ 'usedt'.$i ]." AND rmcd = ".$_POST[ 'rmcd'.$i ] ." AND timekb = ".$_POST[ 'timekb'.$i ];
 	$stmt = sqlsrv_query( $conn, $sql );
 	$row_count = sqlsrv_has_rows ( $stmt );
 	
@@ -136,7 +136,7 @@ for ( $i = 0; $i < $meisai_count; $i++ ) {
 		/* 更新処理 */
 		for ( $j = $stt; $j <= $k;  $j++) {// 3時間分回す
 			
-				$sql = "INSERT INTO web_ksjkntai (usedt , jikan , rmcd , timekb , ukeno , gyo , login , udate , utime)  VALUES  (?,? ,?,?,?,?,? ,?,?)";
+				$sql = "INSERT INTO ks_jkntai (usedt , jikan , rmcd , timekb , ukeno , gyo , login , udate , utime)  VALUES  (?,? ,?,?,?,?,? ,?,?)";
 
 				$params = array( $_POST[ 'usedt'.$i ], $j , $_POST[ 'rmcd'.$i ], $_POST[ 'timekb'.$i ], $webukeno, $gyo, $login, date( "Ymd" ), date( "His" ) );
 

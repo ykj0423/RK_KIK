@@ -82,8 +82,8 @@ include("navi.php"); ?>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <?php
 echo "test2";
-$serverName = "ITWEB1";
-$connectionInfo = array( "Database"=>"RK_KIK_DB1", "UID"=>"sa", "PWD"=>"" );
+$serverName = "WEBRK\SQLEXPRESS";
+$connectionInfo = array( "Database"=>"RK_KIK_DB1", "UID"=>"sa", "PWD"=>"Webrk_2015" );
 $conn = sqlsrv_connect( $serverName, $connectionInfo);
 
 if( $conn === false ) {

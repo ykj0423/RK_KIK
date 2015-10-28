@@ -4,7 +4,7 @@
 //}
 if(empty($_SESSION[webrk][user][userid])){
 	header("Location : top.php");
-	//location.href = "http://itweb1/rk_kik/top.php";
+	//location.href = "http://WEBRK\SQLEXPRESS/rk_kik/top.php";
 
 }
 //require_once( "func.php" );

@@ -1,7 +1,7 @@
 <?php
 
-		$serverName = "ITWEB1";
-		$connectionInfo = array( "Database"=>"RK_KIK_DB1", "UID"=>"sa", "PWD"=>"" );
+		$serverName = "WEBRK\SQLEXPRESS";
+		$connectionInfo = array( "Database"=>"RK_KIK_DB1", "UID"=>"sa", "PWD"=>"Webrk_2015" );
 		$conn = sqlsrv_connect( $serverName, $connectionInfo);
 
 		if( $conn === false ) {
@@ -24,8 +24,8 @@
 
 ?>
 <?php
-/*$serverName = "ITWEB1";
-$connectionInfo = array( "Database"=>"RK_KIK_DB1", "UID"=>"sa", "PWD"=>"" );
+/*$serverName = "WEBRK\SQLEXPRESS";
+$connectionInfo = array( "Database"=>"RK_KIK_DB1", "UID"=>"sa", "PWD"=>"Webrk_2015" );
 $conn = sqlsrv_connect( $serverName, $connectionInfo);
 if( $conn === false ) {
      die( print_r( sqlsrv_errors(), true));
