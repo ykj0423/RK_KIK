@@ -172,12 +172,25 @@ if ( !empty( $conErr ) ) { echo $conErr;  die(); } //接続不可時は終了
     	        </tr-->
     	        <tr>
     		        <th  colspan="2">団体名</th>
-    		        <td  colspan="3"><?php echo $_SESSION[ 'webrk' ][ 'user'][ 'dannm' ]; ?></td>
+    		        <td  colspan="3"><?php echo mb_convert_encoding( $_SESSION['webrk']['user']['dannm'], "utf8", "sjis" ); ?></td>
     	        </tr>
     	        <tr>
-    		        <th  colspan="2">メールアドレス</th>
-    		        <td  colspan="3"><?php echo $_SESSION[ 'webrk' ][ 'user'][ 'mail' ]; ?>
-    		            <p>こちらのアドレスに予約受付のメールをお送りいたします。</p>
+					<th  colspan="2">連絡者名</th>
+		      		<td  colspan="5">
+		      			<?php echo mb_convert_encoding( $_SESSION['webrk']['user']['renraku'], "utf8", "sjis" ); ?>
+					</td>
+		      	</tr>
+		      	<tr>
+					<th  colspan="2">連絡先電話番号</th>
+		      		<td  colspan="5">
+		      			<?php echo $_SESSION['webrk']['user']['tel2']; ?>
+					</td>
+		      	</tr>
+		      	<tr>
+		      		<th colspan="2">連絡用メールアドレス</th>
+		      		<td colspan="5">
+		      			<?php echo $_SESSION['webrk']['user']['mail']; ?>
+			            <p>こちらのアドレスに予約受付のメールをお送りいたします。</p>
     		        </td>
     	        </tr>
     	        <tr><th colspan="5">お申込み施設</th></tr>

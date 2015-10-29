@@ -1,5 +1,13 @@
 <?php
 @session_start();
+/*$_SESSION = array();
+
+if (isset($_COOKIE["PHPSESSID"])) {
+    setcookie("PHPSESSID", '', time() - 1800, '/');
+}
+
+session_destroy();*/
+/*echo "a";
 require_once("model/Kyaku.php");
 $obj = new Kyaku();
 $conErr = $obj->connect();
@@ -7,23 +15,23 @@ if (!empty($conErr)) { echo $conErr; die();}
 
 //ログインの場合
 if (!empty($_POST['userid'])){
-	//echo"c";
+	echo"c";
     $ret = $obj->login();
 	print_r($ret); 
 }
 
 if (empty($ret['ErrCd'])) {
 //if (empty($ret['ErrCd']) && !empty($ret['page'])) {
-	echo"a";
+//	echo"a";
 	header('location: '.$_SESSION['webrk']['selpage'].'.php');
     //header('location: '.$ret['page'].'.php');
     exit();
 }else{
-	echo"b";
+//	echo"b";
 	$errmsg = $ret['ErrMsg'];
 }
 
-$obj->close();
+$obj->close();*/
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -38,7 +46,51 @@ $obj->close();
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+<script src="js/clear.storage.js"></script>
 </head>
+<?php
+$_SESSION['wloginid'] ="";
+include('model/Kyaku2.php');
+$errmsg="";
+echo "selpage=".$_SESSION['webrk']['selpage'] ;
+if( isset( $_POST['submit'] ) && !empty( $_POST['submit'] ) ){
+
+    if (empty($_POST['wloginid'])){
+        $errmsg = "ログインIDを入力してください。"; 
+    }else if (empty($_POST['wpwd'])){
+        $errmsg = "パスワードを入力してください。";  
+    }
+    
+    //ログインIDとパスワードのチェック
+    $Kyaku = new Kyaku2();
+
+    $login = $Kyaku->login( $_POST['wloginid'], $_POST['wpwd'] );
+
+    if(!$login){
+        $errmsg = "ログインIDもしくはパスワードが違います。";
+    }
+
+    if ( !$errmsg ) {
+        $_SESSION['wloginid'] = $_POST['wloginid'];
+        //オブジェクトのシリアル化
+        unset( $_SESSION['Kyaku'] );
+        $_SESSION['Kyaku'] = serialize( $Kyaku );
+
+        if(empty($_SESSION['webrk']['user']['wuserupd'])){
+            header( 'location: regist.php' );
+        }else{
+            header( 'location: '.$_SESSION['webrk']['selpage'] );
+        }
+
+        exit();
+    }else{
+        echo $errmsg;
+    }
+
+}
+//エラーメッセージ
+//include('include/err.php');
+?>
 <body class="container">
     <h1><span class="midashi">|</span>ログイン　<small><?php echo $_SESSION['webrk']['sysname']; ?></small></h1>
     <div class="text-center">
@@ -56,13 +108,13 @@ $obj->close();
                 <div class="form-group text-center">
                     <label class="col-xs-5 control-label" for="loginid">ログインID</label>
                     <div class="col-xs-3">
-                        <input type="text" class="form-control" id="loginid" name="userid">
+                        <input type="text" class="form-control" id="wloginid" name="wloginid">
                     </div>
                 </div>
                 <div class="form-group text-center">
                     <label class="col-xs-5 control-label" for="pass">パスワード</label>
                     <div class="col-xs-3">
-                        <input type="password" class="form-control" id="pass" name="pwd">
+                        <input type="password" class="form-control" id="wpwd" name="wpwd">
                     </div>
                 </div>
                  <div class="form-group">
@@ -70,7 +122,7 @@ $obj->close();
                         <a href="top.php"   class="btn btn-default btn-lg">戻る</a>
                     </div>
                     <div class="col-xs-1">
-                        <input type="submit" name="login" value="ログイン" class="btn btn-warning btn-lg">
+                        <input type="submit" name="submit" value="ログイン" class="btn btn-warning btn-lg">
                     </div>
                 </div>
         </div>

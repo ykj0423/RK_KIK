@@ -37,9 +37,6 @@ include("navi.php");
           <span class="f120">現在の時間：　<span id="currentTime"></span></span>
        </div>
    </div>
-<!------------------->
-
-
     <!-- main -->
    <div class="row">
      <div class="col-xs-9" style="padding:0">
@@ -87,7 +84,7 @@ $db = new DB;
 $conErr = $db->connect();
 if (!empty($conErr)) { echo $conErr; die();}
 
-$rsvlist = $db->select_rsvlist(1);//客コード
+$rsvlist = $db->select_rsvlist(11627);//客コード
 
 for ( $i = 0; $i < count( $rsvlist ); $i++ ) {
 

@@ -10,17 +10,17 @@ unset($_SESSION['webrk']['selpage']);
 
 if (!empty($_POST['user_search'])){
     $url = (isset($_SESSION['webrk']['user'])) ? 'search.php' : $login;
-    $_SESSION['webrk']['selpage'] = 'search';
+    $_SESSION['webrk']['selpage'] = 'search.php';
 }
 
 if (!empty($_POST['user_rsvlist'])){
     $url = (isset($_SESSION['webrk']['user'])) ? 'rsvlist.php' : $login;
-    $_SESSION['webrk']['selpage'] = 'rsvlist';
+    $_SESSION['webrk']['selpage'] = 'rsvlist.php';
 }
 
 if (!empty($_POST['user_infochange'])){
-    $url = (isset($_SESSION['webrk']['user'])) ? 'member.php' : $login;
-    $_SESSION['webrk']['selpage'] = 'member';
+    $url = (isset($_SESSION['webrk']['user'])) ? 'member_top.php' : $login;
+    $_SESSION['webrk']['selpage'] = 'member_top.php';
 }
 
 if (!empty($url)){

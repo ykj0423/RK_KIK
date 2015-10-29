@@ -29,7 +29,7 @@
 		//$('#submit_Click').attr('disabled', false);
 		/* 予約件数の復元 */		
 		var strlist = new Array();
-		var strlist = JSON.parse(localStorage.getItem("sentaku"));//選択リスト
+		//var strlist = JSON.parse(localStorage.getItem("sentaku"));//選択リスト
 		$(".selcnt").text("現在の選択 ： " + strlist.length + "件");
 
         jQuery('#date_timepicker_start').datetimepicker({
@@ -228,19 +228,19 @@
         var strlist = new Array();
 
 		/* 予約状態の復元 */		
-		var objData = JSON.parse(localStorage.getItem("sentaku"));//選択リスト
+		/*var objData = JSON.parse(localStorage.getItem("sentaku"));//選択リスト
 		if( objData != null){
 			for ( var i=0; i < objData.length; i++ ){
 				var  lnkstr = objData[i]['key'];
 				var imgstr = lnkstr.replace('a-', 'img-');
 				$("#" + imgstr).attr('src', 'icon/sentaku.png');
 			}
-		}
+		}*/
 		/* 空室・選択クリック時 */
         $("a").click(function () {
 			
 			/* 予約状態の復元 */
-			strlist = JSON.parse(localStorage.getItem("sentaku"));
+			//var strlist = JSON.parse(localStorage.getItem("sentaku"));
 			
 			var lnkstr = $(this).attr("id");
             var imgstr = lnkstr.replace('a-', 'img-');
@@ -275,7 +275,7 @@
 				//9件/月にすべきか
 				for ( var i=0; i < strlist.length; i++ ){
 					var wkey = strlist[i]['key'].slice(4, 10);			
-					alert(wkey);				
+					//alert(wkey);				
 				}
 				
 				if(strlist.length>9){
@@ -476,6 +476,7 @@ if( count( $_POST[ 'yobi' ] ) > 0 ){
 </form>
 
 	<!--検索結果-->
+	<p>特目室とは、美術室・料理教室などの特定の目的でご利用いただく部屋です。ただし、館によって、ご利用いただける特目室は異なります。</p>
     <p class="h4 ml10">ご利用になりたい時間帯の[空]を押して、[○]にしてください。選択後、[予約申請へ進む]を押してください。</p>
     <div id="result">
 		<div class="row mb10">
@@ -530,10 +531,16 @@ for ($i = 0; $i < ( count( $room ) ) ; $i++ ) {
 	$rmcd = $room[ $i ][ 'rmcd' ];   			//施設コード
 	$rmnm = mb_convert_encoding($room[ $i ][ 'rmnmw' ], "utf8", "SJIS");//施設名称
     $teiin = ltrim( $room[ $i ][ 'capacity' ], '0' );	//定員
+    $weblink = $room[ $i ][ 'weblink' ];   			//施設情報
 
 	echo "<tr class=\"dgray\">";
     //施設情報
-    echo "<th rowspan=\"3\"><span class=\"f150\">".$rmnm."</span><br>[定員]".$teiin."<a href=\"#\"class=\"btn btn-primary btn-xs\" role=\"button\">施設情報</a></th>";
+ 	echo "<th rowspan=\"3\"><span class=\"f150\">".$rmnm."</span><br>[定員]".$teiin;
+ 	echo "<a href=\"".$weblink."\" target=\"_blank\" class=\"btn btn-primary btn-xs\" role=\"button\">施設情報</a></th>";
+
+	//echo "<tr class=\"dgray\">";
+    //施設情報
+    //echo "<th rowspan=\"3\"><span class=\"f150\">".$rmnm."</span><br>[定員]".$teiin."<a href=\"#\"class=\"btn btn-primary btn-xs\" role=\"button\">施設情報</a></th>";
 
     //カレンダー
     //本当は一気に取りたい

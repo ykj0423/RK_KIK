@@ -331,13 +331,31 @@ $val = new input_validation();
       	<tr>
 			<th  colspan="2">団体名</th>
       		<td  colspan="5">
-			<?php echo $_SESSION[ 'webrk' ][ 'user'][ 'dannm' ]; ?>
+      			<?php echo mb_convert_encoding( $_SESSION['webrk']['user']['dannm'], "utf8", "sjis" ); ?>
 			</td>
       	</tr>
       	<tr>
-      		<th  colspan="2">メールアドレス</th>
+			<th  colspan="2">連絡者名</th>
       		<td  colspan="5">
-			<?php echo $_SESSION[ 'webrk' ][ 'user' ][ 'mail' ]; ?>
+      			<input type="text"  class="form-control" name="renraku" id="renraku" 
+      			value="<?php echo mb_convert_encoding( $_SESSION['webrk']['user']['renraku'], "utf8", "sjis" ); ?>"
+			 	style="width:70%"><span class="note">（全角20文字まで)</span>
+      		</td>
+      	</tr>
+      	<tr>
+			<th  colspan="2">連絡先電話番号</th>
+      		<td  colspan="5">
+      			<input type="text"  class="form-control" name="tel2" id="tel2" 
+      			value="<?php echo $_SESSION['webrk']['user']['tel2']; ?>"
+			 	style="width:70%">
+			</td>
+      	</tr>
+      	<tr>
+      		<th colspan="2">連絡用メールアドレス</th>
+      		<td colspan="5">
+      			<input type="text"  class="form-control" name="mail" id="mail" 
+      			value="<?php echo $_SESSION['webrk']['user']['mail']; ?>"
+      			style="width:70%">
       		 <p>迷惑メールの設定をされておりますと、メールが受信できませんので<br>「@xxx.xxx」のドメイン許可をお願いいたします。</p>
       		</td>
       	</tr>
