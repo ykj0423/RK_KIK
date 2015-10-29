@@ -59,8 +59,6 @@ if( isset( $_POST['submit'] ) && !empty( $_POST['submit'] ) ){
     <p class="f120 col-xs-8">必要事項をご入力のうえ、「確認画面へ」ボタンを押してください。
       <!--br>登録完了後、本システムのログインに必要な情報をメールでお送りいたします。--></p>
       <div class="col-xs-4">
-        <a href="help.html#regist"  class="btn alert-info" target="window_name"  onClick="disp('help.html#regist')"><li class="glyphicon glyphicon-question-sign" aria-hidden="true">&nbsp;この画面の操作方法についてはこちら>></li></a> 
-        <a href="loginqa.html#regist"   class="btn alert-danger" target="window_name"  onClick="disp('loginqa.html#regist')"><li class="glyphicon glyphicon-exclamation-sign" aria-hidden="true">&nbsp;入力にあたってのご注意はこちら>></li></a> 
       </div>
   </div>
   <form role="form" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">

@@ -8,10 +8,10 @@
             <li><a href="search.php">空き状況検索</a></li>
 <?php //if (isset($_SESSION['webrk']['user'])){ ?>
             <li><a href="rsvlist.php">予約照会</a></li>
-
-            <li  class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">利用者情報管理<span class="caret"></span></a>
+<li><a href="member_top.php">利用者情報変更</a></li>
+            <!--li  class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">利用者情報管理<span class="caret"></span></a>
                 <ul id="subul" class="dropdown-menu text-left" role="menu"><li><a href="member.php">メールアドレスの変更・メール受信テスト</a></li><li><a href="pass.php">パスワードの変更</a></li></ul>
-            </li>
+            </li-->
 <?php //} ?>
             <li><a href="http://www.kobe-kinrou.jp/shisetsu/kinroukaikan/ryokin.php#h3473" target="_blank">料金表</a></li>
             <li><a href="help.php" target="_blank">システムガイド</a></li>

@@ -37,7 +37,20 @@ include('include/err.php');
 include('navi.php');
 
 ?>
-
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/custom.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.datetimepicker.js"></script>
+<script src="js/custom.js"></script>
+</head>
+<body>
     <p>入力内容をご確認いただき、問題がなければ「送信する」ボタンを押してください。</p>
       <table id="demo" align="center" class="table table-bordered table-condensed  form-inline f120" >
       <tr>

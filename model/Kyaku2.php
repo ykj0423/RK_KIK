@@ -359,51 +359,28 @@ class Kyaku2 extends ModelBase {
         return $rtnAry;
     }
 
-	public function change_password( $kyacd, $passold, $passnew ){
+	public function change_password( $wloginid, $passnew ){
 		
-		$serverName = "ITWEB1";
-		$connectionInfo = array( "Database"=>"RK_KIK_DB1", "UID"=>"sa", "PWD"=>"" );
-		$conn = sqlsrv_connect( $serverName, $connectionInfo);
+		//$serverName = "ITWEB1";
+		//$connectionInfo = array( "Database"=>"RK_KIK_DB1", "UID"=>"sa", "PWD"=>"" );
+		//$conn = sqlsrv_connect( $serverName, $connectionInfo);
 
-		if( $conn === false ) {
-			 die( print_r( sqlsrv_errors(), true));
-		}
+		//if( $conn === false ) {
+		//	 die( print_r( sqlsrv_errors(), true));
+		//}
+		$this->connectDb();
+
+		$sql = "update mt_kyaku set wpwd = '".$passnew."' where wloginid = '".$wloginid."'";
 		
-		$sql = "SELECT pwd FROM web_mkyaku where kyacd = ".$kyacd;
-		
-		$stmt = sqlsrv_query( $conn, $sql );
+		$stmt = sqlsrv_query( $this->conn, $sql );
 		
 		if( $stmt === false) {
-			die( print_r( sqlsrv_errors(), true) );
-		}
-		
-		$pass_db="";
-
-		while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_NUMERIC) ) {
-			  $pass_db = $row[0];
-		}
-		
-		sqlsrv_free_stmt( $stmt);
-		
-		if( $pass_db == $passold ){
-		}else{
-			
-			echo "パスワードが一致しません。";
+            echo $sql;
+			print_r( sqlsrv_errors(), true) ;
 
 		}
 		
-		return false;
 
-		$sql = "update web_mkyaku set pwd='".$passnew."' where kyacd = ".$kyacd;
-		$params = array($pass);
-		echo $sql;
-		print_r($params);
-		sqlsrv_query( $conn, $sql );//, $params);
-
-		if( $stmt === false ) {
-			die( print_r( sqlsrv_errors(), true));
-		}
-	
 		return true;
 	}
 
