@@ -172,12 +172,14 @@ $val = new input_validation();
 							return false;
 						}
 						if(  $('#ninzu' + i ).val()==0){
-							alert("人数は０以上で入力してください。");
+							alert("人数は0以上で入力してください。");
 							return false;
 						}
 						objData[i]['ninzu'] = $('#ninzu' + i ).val();//入力された人数を格納
 					}
 			}
+			
+
 			localStorage.removeItem('sentaku');
 			//alert('removeitem');
 			localStorage.setItem('sentaku', JSON.stringify(objData));

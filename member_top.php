@@ -23,7 +23,7 @@ include('navi.php');
  *
  * PHP versions 4
  *
- * @category   公益財団法人神戸市産業振興財団／利用者情報変更
+ * @category   公益財団法人神戸いきいき勤労財団／利用者情報変更
  * @package    none
  * @author     y.kamijo <y.kamijo@gandg.co.jp>
  * @copyright  2015 G&G Co.ltd.
