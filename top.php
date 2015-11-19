@@ -23,6 +23,11 @@ if (!empty($_POST['user_infochange'])){
     $_SESSION['webrk']['selpage'] = 'member_top.php';
 }
 
+if (!empty($_POST['pre_search'])){
+    $url = 'pre_search.php';
+    $_SESSION['webrk']['selpage'] = 'pre_search.php';
+}
+
 if (!empty($url)){
     header('location: '.$url);
     exit();
@@ -56,7 +61,7 @@ if (!empty($url)){
 
 <div class="alert alert-info" role="alert">
 <p class="lead">ご利用登録されていない方はこちら</p>
-<input type="submit" class="btn btn-primary btn-lg" name="ronly_infochange" role="button" value="空き状況検索　>>">
+<input type="submit" class="btn btn-primary btn-lg" name="pre_search" role="button" value="空き状況検索　>>">
 </div>
 </div>
 </form>

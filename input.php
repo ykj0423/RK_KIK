@@ -141,7 +141,7 @@ $val = new input_validation();
 			tr.append( td1 ).append( td2 ).append( td3 ).append( td4 ).append( td5 ).append( td6 ).append( td7 ).append( td8 ).append( td9 ).append( td10 );
 			td1.html( gyo );
 			td2.html( useyyyy + "/" + usemm + "/" +  usedd  + yobi );
-			td3.html( "<input type='text' class='form-control'  name='stjkn" + i + "' id='stjkn" + i + "' value='"+ objData[i]['jkn1'] + "'' style='width:70px'>"+"～"+"<input type='text' class='form-control' name='edjkn" + i + "' id='edjkn" + i + "' value='"+ objData[i]['jkn2'] + "'' style='width:70px'><span class='text-danger'>（必須)</span>" );
+			td3.html( objData[i]['jkn1'] + "～" + objData[i]['jkn2'] + "<input type='hidden' class='form-control'  name='stjkn" + i + "' id='stjkn" + i + "' value='"+ objData[i]['jkn1'] + ">"+"<input type='hidden' class='form-control' name='edjkn" + i + "' id='edjkn" + i + "' value='"+ objData[i]['jkn2'] + "'' style='width:70px'><span class='text-danger'>（必須)</span>" );
 			td4.html( "<input type='text' class='form-control' name='ninzu" + i + "' id='ninzu" + i + "' value='' style='width:50px'>人<span class='text-danger'>（必須)</span>" );
 			td5.html( objData[i]['rmnm'] );
 			td6.html( "&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp<a class=\"btn btn-default btnclass\" id='btn-" + objData[i]['rmcd'] + objData[i]['usedt'] + objData[i]['timekb'] + "' name='" + i + "' href=\"#\" role=\"button\">申し込みをやめる >> </a>" );

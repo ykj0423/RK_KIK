@@ -358,7 +358,7 @@ $sql = "INSERT INTO dt_roomr (ukeno , ukedt , nen , krkb , krmemo , ukecd , nyut
 // 受付番号 受付日付 年度 仮予約区分 仮受付メモ 受付者コード 受付方法区分 顧客コード 団体名 団体名２ 団体カナ名 代表者名 連絡者名 ＴＥＬ１ ＴＥＬ２
 //ＦＡＸ 郵便番号 住所１ 住所２ メールアドレス 業種コード 資本金 従業員数 顧客区分 会議名称 内容 顧客備考 顧客更新区分
 //予約種別区分 利用目的区分 コンピュータ名 更新日付 更新時間
-$params = array($ukeno, date( 'Ymd' ), date( "Y" ), 0 , "", 1,  1,  1,  10,
+$params = array($ukeno, date( 'Ymd' ), date( "Y" ), 0 , "", 1,  1,  1,  11627,
 						$dannm, $dannmk, $daihyo, $renraku, $tel1, $tel2, $zipcd, $adr1, $adr2, $gyscd, $sihon,
 						$jygsu, $kyakb, $kaigi, $kaigi, "", "", 2, 1, $riyokb, $login, date( "Ymd" ) , date("His" ));
 //print_r($params);

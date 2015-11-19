@@ -1,7 +1,7 @@
 <?php @session_start();
-if(empty($_SESSION['webrk']['user']['userid'])){
-	header("Location : top.php");	
-}
+//if(empty($_SESSION['webrk']['user']['userid'])){
+//	header("Location : top.php");	
+//}
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -10,7 +10,7 @@ if(empty($_SESSION['webrk']['user']['userid'])){
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta NAME="ROBOTS" CONTENT="NOINDEX,NOFOLLOW,NOARCHIVE">
-<title>仮予約取消確認 |  <?php echo $_SESSION['webrk']['sysname']; ?></title>
+<title>予約取消確認 |  <?php echo $_SESSION['webrk']['sysname']; ?></title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/custom.css" rel="stylesheet">
 <script src="js/custom.js"></script>
@@ -24,75 +24,95 @@ if(empty($_SESSION['webrk']['user']['userid'])){
 <body class="container">
 <?php 
 include("navi.php");
-print_r($_POST);
-echo "<br>";
 ?>
-
-<!------------------->
-   <div class="row">
+<div class="row">
       	<div class="col-xs-6" style="padding:0">
-        <h1><span class="midashi">|</span>仮予約取消確認</h1>
+        <h1><span class="midashi">|</span>予約取消確認</h1>
        </div>
 
       	<div class="col-xs-6  text-right">
           <span class="f120">現在の時間：　<span id="currentTime"></span></span>
        </div>
-   </div>
-<!------------------->
-
-<!-- main --><br>
-	<h4>以下の仮予約を取消してもよろしいですか？</h4>
-  <form name="delconf_form" id="delconf_form" role="form"  action="delend.php" method="post">
+   </div><br>
+	<h4>以下の予約を取消してもよろしいですか？</h4>
   <table id ="rsv_input" class="table table-bordered  table-condensed  form-inline">
-	<tr><th colspan="4">WEB予約受付No.141011-01 </th></tr>
-	<tr>
-		<th colspan="2" width="20%">行事名</th>
-		<td colspan="2" width="70%">定例会議</td>
-	</tr>
-	<tr>
-		<th colspan="2">利用目的</th>
-		<td colspan="2">会議</td>
-	</tr>
-	<tr>
-		<th colspan="2">ご利用人数</th>
-		<td colspan="2">30人</td>
-	</tr>
-	<tr><th colspan="4">お申込み施設</th></tr>
-	<tr>
-		<th width="10%">No.</th>
-		<th width="20%">ご利用日</th>
-		<th width="20%">ご利用時間</th>
-		<th>施設名</th>
-	</tr>
-	<?php 
-	//[del] => Array ( [0] => 13 [1] => 15 [2] => 17 ) 
+<?php  	
+//削除画面のパラーメータ
+$serverName = "WEBRK\SQLEXPRESS";
+$connectionInfo = array( "Database"=>"RK_KIK_DB1", "UID"=>"sa", "PWD"=>"Webrk_2015" );
+$conn = sqlsrv_connect( $serverName, $connectionInfo );
+
+if( $conn === false ) {
+     die( print_r( sqlsrv_errors(), true));
+}
+
+for( $i=0; $i <count( $_POST['del']); $i++ ){
+		
+	$index =  $_POST['del'][$i];
+	$sql = "SELECT * ,mt_room.rmnm FROM dt_roomrmei ";
+	$sql = $sql." left outer join dt_roomr on dt_roomrmei.ukeno=dt_roomr.ukeno ";
+	$sql = $sql." left outer join mt_room on dt_roomrmei.rmcd = mt_room.rmcd ";
+	$sql = $sql." WHERE dt_roomrmei.ukeno=".$_POST['ukeno'.$index]." AND dt_roomrmei.gyo=".$_POST['gyo'.$index];
+	//$params = array( $_POST['ukeno'.$i], $_POST['gyo'.$i]);
 	
+	$stmt = sqlsrv_query( $conn, $sql );
+	$j = 0;
+	
+	$usedt = array();
+	$rmcd = array();
+	$jikan = array();
+
+	while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
+		//echo "<br>";
+		echo "<tr><th colspan=\"4\">WEB予約受付No.".$row[ 'ukeno' ]."-".$row[ 'gyo' ]."</th></tr>";
+		echo "<tr>";
+		echo "<th colspan=\"2\" width=\"20%\">行事名</th>";
+		echo "<td colspan=\"2\" width=\"70%\">".mb_convert_encoding( $row['kaigi'], "utf8", "sjis" )."</td>";
+		echo "</tr>";
+		echo "<tr>";
+		echo "<th colspan=\"2\">利用目的</th>";
+		echo "<td colspan=\"2\">会議</td>";
+		echo "</tr>";
+		echo "<tr>";
+		echo "<th colspan=\"2\">ご利用人数</th>";
+		echo "<td colspan=\"2\">".$row['ninzu']."人</td>";
+		echo "</tr>";
+		echo "<tr><th colspan=\"4\">お申込み施設</th></tr>";
+		echo "<tr>";
+		echo "<th width=\"10%\">No.</th>";
+		echo "<th width=\"20%\">ご利用日</th>";
+		echo "<th width=\"20%\">ご利用時間</th>";
+		echo "<th>施設名</th>";
+		echo "</tr>";
+		echo "<tr>";
+		$j = $i+1;
+		echo "<td>".$j."</td>";
+		echo "<td>".substr( $row['udate'], 0, 4 )."/".substr( $row['udate'], 4, 2 )."/".substr( $row['udate'], 6, 2 );
+		echo "(".mb_convert_encoding( $row['yobi'], "utf8", "sjis" ).")</td>";
+		echo "<td>".$row['stjkn']."～".$row['edjkn']."</td>";
+		echo "<td>".mb_convert_encoding( $row['rmnm'], "utf8", "sjis" )."</td>";
+		echo "</tr>";
+	}
+}
+?>
+
+	</table>
+  	<form name="delconf_form" id="delconf_form" role="form"  action="delend.php" method="post">
+<?php 
 	for( $i=0; $i <count( $_POST['del']); $i++ ){
 		$index =  $_POST['del'][$i];
-		//echo $_POST['ukeno'.$index]."-".$_POST['gyo'.$index];
-		echo "ukeno<input type='text' name='ukeno".$i."' id='ukeno".$i."'  value=\"".$_POST['ukeno'.$index]."\">";
-		echo "gyo<input type='text' name='gyo".$i."' id='gyo".$i."' value=\"".$_POST['gyo'.$index]."\">";
+		echo "<input type='hidden' name='ukeno".$i."' id='ukeno".$i."'  value=\"".$_POST['ukeno'.$index]."\">";
+		echo "<input type='hidden' name='gyo".$i."' id='gyo".$i."' value=\"".$_POST['gyo'.$index]."\">";
 	}
-	echo "meisai_count<input type='text' name='meisai_count' id='meisai_count'  value=\"".count( $_POST['del'] )."\">";
-	
-	?>
-	
-	
-	<tr>
-		<td>1</td>
-		<td>2015/01/28（木）</td>
-		<td>09:00～12:00</td>
-		<td>会議室A  </td>
-	</tr>
-	</table>
-	<h4 class="red">！！　一度取り消した申込は、もとに戻すことはできません　！！</h4>
-	<a class="btn btn-default btn-lg" href="top.php" role="button">戻る</a>
-	<input type='submit' class="btn btn-warning btn-lg" role="button" name="submit_Click" id="submit_Click" value="取消を確定する&nbsp;>>">
-</form>	
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+
+	echo "<input type='hidden' name='meisai_count' id='meisai_count'  value=\"".count( $_POST['del'] )."\">";//件数
+?>
+		<h4 class="red">！！　一度取り消した申込は、もとに戻すことはできません　！！</h4>
+		<a class="btn btn-default btn-lg" href="top.php" role="button">戻る</a>
+		<input type='submit' class="btn btn-warning btn-lg" role="button" name="submit_Click" id="submit_Click" value="取消を確定する&nbsp;>>">
+	</form>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-
-
 </body>
 </html>
