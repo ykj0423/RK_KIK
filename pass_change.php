@@ -31,6 +31,7 @@ include('navi.php');
 
 require_once('model/Kyaku2.php');
 $infomsg = "";
+$change = false;
 
 $Kyaku = new Kyaku2();
 if( empty( $_POST['regist'] ) ){
@@ -46,15 +47,14 @@ if( empty( $_POST['regist'] ) ){
     }else if( $_POST['passnew'] != $_POST['passnew2'] ){
         $errmsg = "パスワードが一致しません。";
     }else{
-       
 
-if( $Kyaku->change_password( $_SESSION['wloginid'] , $_POST['passnew'] )){
+        if( $Kyaku->change_password( $_SESSION['wloginid'] , $_POST['passnew'] )){
             $infomsg = "パスワードの変更が完了致しました。";
             $mail_adress = $_POST['mail'];
+            $change = true;
         }
 
     }
-
 
 }
 
@@ -65,6 +65,9 @@ if( $Kyaku->change_password( $_SESSION['wloginid'] , $_POST['passnew'] )){
           <span class="f120">現在の時間：　2015/9/29   16:26:22</span>
        </div-->
    </div>
+<?php 
+if(!$change){
+?>  
 	<table class="table table-bordered">
     <tbody>
       <!--tr><th width="30%">現在のパスワード<span class="text-danger">(必須)</span></th><td><input type="password" name="pass" value=""></td></tr-->
@@ -74,5 +77,8 @@ if( $Kyaku->change_password( $_SESSION['wloginid'] , $_POST['passnew'] )){
     </table>
     <input type="submit" class="btn btn-primary" role="button" name="regist" value="変更する　>>"><br><br>
   </form>
+<?php } ?>
+  <a class="btn btn-default btn-lg" href="top.php" role="button">トップページに戻る</a>
+  <a class="btn btn-default btn-lg" href="member.php" role="button">戻る</a>
 </body>
 </html>

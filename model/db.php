@@ -612,10 +612,11 @@ class DB
 		$ret = array();
 		
 		$sql = "select code , name from mm_riyo"; 
+		$sql = $sql." where  fild1 = 1 ";
 		
-		if (func_num_args() > 0)
+        if (func_num_args() > 0)
 		{
-			$sql = $sql." where  code = ".func_get_arg(0);;
+			$sql = $sql." and code = ".func_get_arg(0);
 		}
 		
 		$sql = $sql." order by code";
@@ -650,8 +651,8 @@ class DB
 		$sql = "select count(*) from dt_roomrmei left outer join dt_roomr on dt_roomr.ukeno = dt_roomrmei.ukeno";
 		$sql = $sql." where candt = 0 and dt_roomr.kyacd = ".$kyakucd;
 		$sql = $sql." and dt_roomrmei.usedt > ".$year.$month."00" ." and dt_roomrmei.usedt < ".$year.$nextmonth."00";
-echo $sql;
-echo "<br>";
+//echo $sql;
+//echo "<br>";
 		$result = sqlsrv_query( $this->con, $sql );
 
 		if( $result === false ) {

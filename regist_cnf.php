@@ -3,7 +3,7 @@
 
 $errmsg = "";
 //header
-$pageTitle = "新規利用者登録[確認]";
+$pageTitle = "利用者情報登録[確認]";
 include('include/header.php');
 include('model/Kyaku2.php');
 
@@ -50,12 +50,30 @@ include('navi.php');
 <script src="js/jquery.datetimepicker.js"></script>
 <script src="js/custom.js"></script>
 </head>
-<body>
-    <p>入力内容をご確認いただき、問題がなければ「送信する」ボタンを押してください。</p>
-      <table id="demo" align="center" class="table table-bordered table-condensed  form-inline f120" >
+<body class="container">
+<!-- title -->
+   <div class="row">
+        <div class="col-xs-6" style="padding:0">
+        <h1><span class="midashi">|</span><?php echo $pageTitle; ?></h1>
+       </div>
+        <div class="col-xs-6  text-right">
+          <span class="f120">現在の時間：　<span id="currentTime"></span></span>
+       </div>
+   </div>
+<!-- title -->
+<!-- main -->
+  <h4>内容をご確認下さい。</h4>
+  <div class="row mb10">
+    <p class="f120 col-xs-8">入力内容をご確認いただき、問題がなければ「登録する」ボタンを押してください。
+      <!--br>登録完了後、本システムのログインに必要な情報をメールでお送りいたします。--></p>
+      <div class="col-xs-4">
+      </div>
+  </div>
+    <table id ="regist" class="table table-bordered table-condensed  form-inline">
+      <tr><th colspan="7">利用者情報詳細</th></tr>
       <tr>
         <th>団体名</th>
-        <td><?php echo  $Kyaku->put_data('dannm'); ?></td>
+        <td colspan="5" width="70%"><?php echo  $Kyaku->put_data('dannm'); ?></td>
       </tr>
       <!--tr>
         <th>利用者名（カナ）</th>
@@ -112,8 +130,8 @@ include('navi.php');
 
     <?php  //$_SESSION['Kyaku'] = serialize( $Kyaku );?>
     <div style="text-align:center">
-      <a class="btn btn-default btn-lg mb20" href="regist.html" role="button"><< 修正する</a>
-      <a class="btn btn-primary btn-lg mb20" href="regist_end.php" role="button">送信する　>></a>
+      <a class="btn btn-default btn-lg mb20" href="regist.php" role="button"><< 修正する</a>
+      <a class="btn btn-primary btn-lg mb20" href="regist_end.php" role="button">登録する >></a>
     </div>
  </div>
 </body>

@@ -64,10 +64,10 @@ for ( $i = 0; $i < $meisai_count; $i++ ) {
 	$checkm = substr($checkdt, 4, 2);
 
 	if( $db->check_monthly_count($checkkyaku,$checky,$checkm) > 9){
-		echo $checky."年".$checkm."月に関してはお申し込みの上限を超えています。";
+		//echo $checky."年".$checkm."月に関してはお申し込みの上限を超えています。";
 		die();
 	}else{
-		echo $checky."年".$checkm."月に関してはお申し込みの上限を超えていません。";
+		//echo $checky."年".$checkm."月に関してはお申し込みの上限を超えていません。";
 	}
 	
 }
@@ -147,11 +147,11 @@ for ( $i = 0; $i < $meisai_count; $i++ ) {
 					if( ( $errors = sqlsrv_errors() )  != null) {
 
 						foreach( $errors as $error ) {
-								echo "SQLSTATE: ".$error[ 'SQLSTATE']."<br />";
-								echo "code: ".$error[ 'code']."<br />";
-								echo "message: ".mb_convert_encoding( $error[ 'message'] ,  "UTF-8" )."<br />";
-								print_r ($params);
-								echo "<br>";
+							//echo "SQLSTATE: ".$error[ 'SQLSTATE']."<br />";
+							//echo "code: ".$error[ 'code']."<br />";
+							//echo "message: ".mb_convert_encoding( $error[ 'message'] ,  "UTF-8" )."<br />";
+							//print_r ($params);
+							//echo "<br>";
 								//die();
 						}
 						
@@ -367,10 +367,10 @@ $stmt = sqlsrv_query( $conn, $sql, $params);
 if( $stmt === false ) {
     if( ($errors = sqlsrv_errors() ) != null) {
         foreach( $errors as $error ) {
-            echo "dt_roomr<br>";
-			echo "SQLSTATE: ".$error[ 'SQLSTATE']."<br />";
-            echo "code: ".$error[ 'code']."<br />";
-            echo "message: ".mb_convert_encoding( $error[ 'message'] ,  "UTF-8" )."<br />";
+            //echo "dt_roomr<br>";
+			//echo "SQLSTATE: ".$error[ 'SQLSTATE']."<br />";
+            //echo "code: ".$error[ 'code']."<br />";
+            //echo "message: ".mb_convert_encoding( $error[ 'message'] ,  "UTF-8" )."<br />";
         }
     }
 }
@@ -406,10 +406,10 @@ for ($i = 0; $i < $meisai_count; $i++) {
 	if( $stmt === false ) {
 		if( ($errors = sqlsrv_errors() ) != null) {
 			foreach( $errors as $error ) {
-				echo "SQLSTATE: ".$error[ 'SQLSTATE']."<br />";
-				echo "code: ".$error[ 'code']."<br />";
-				echo "message: ".mb_convert_encoding( $error[ 'message'] ,  "UTF-8" )."<br />";
-				print_r($params);
+				//echo "SQLSTATE: ".$error[ 'SQLSTATE']."<br />";
+				//echo "code: ".$error[ 'code']."<br />";
+				//echo "message: ".mb_convert_encoding( $error[ 'message'] ,  "UTF-8" )."<br />";
+				//print_r($params);
 			}
 		}
 	}

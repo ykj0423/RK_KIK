@@ -141,7 +141,7 @@ $val = new input_validation();
 			tr.append( td1 ).append( td2 ).append( td3 ).append( td4 ).append( td5 ).append( td6 ).append( td7 ).append( td8 ).append( td9 ).append( td10 );
 			td1.html( gyo );
 			td2.html( useyyyy + "/" + usemm + "/" +  usedd  + yobi );
-			td3.html( objData[i]['jkn1'] + "～" + objData[i]['jkn2'] + "<input type='hidden' class='form-control'  name='stjkn" + i + "' id='stjkn" + i + "' value='"+ objData[i]['jkn1'] + ">"+"<input type='hidden' class='form-control' name='edjkn" + i + "' id='edjkn" + i + "' value='"+ objData[i]['jkn2'] + "'' style='width:70px'><span class='text-danger'>（必須)</span>" );
+			td3.html( objData[i]['jkn1'] + "～" + objData[i]['jkn2'] + "<input type='hidden' name='stjkn" + i + "' id='stjkn" + i + "' value='"+ objData[i]['jkn1'] + ">"+"<input type='hidden' name='edjkn" + i + "' id='edjkn" + i + "' value='"+ objData[i]['jkn2'] + ">" );
 			td4.html( "<input type='text' class='form-control' name='ninzu" + i + "' id='ninzu" + i + "' value='' style='width:50px'>人<span class='text-danger'>（必須)</span>" );
 			td5.html( objData[i]['rmnm'] );
 			td6.html( "&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp<a class=\"btn btn-default btnclass\" id='btn-" + objData[i]['rmcd'] + objData[i]['usedt'] + objData[i]['timekb'] + "' name='" + i + "' href=\"#\" role=\"button\">申し込みをやめる >> </a>" );
@@ -337,15 +337,15 @@ $val = new input_validation();
 			</td>
       	</tr>
       	<tr>
-			<th  colspan="2">連絡者名</th>
+			<th  colspan="2">連絡者名<span class="text-danger">（必須)</span></th></th>
       		<td  colspan="5">
       			<input type="text"  class="form-control" name="renraku" id="renraku" 
       			value="<?php echo mb_convert_encoding( $_SESSION['webrk']['user']['renraku'], "utf8", "sjis" ); ?>"
-			 	style="width:70%"><span class="note">（全角20文字まで)</span>
+			 	style="width:70%"></th>
       		</td>
       	</tr>
       	<tr>
-			<th  colspan="2">連絡先電話番号</th>
+			<th  colspan="2">連絡先電話番号<span class="text-danger">（必須)</span></th></th>
       		<td  colspan="5">
       			<input type="text"  class="form-control" name="tel2" id="tel2" 
       			value="<?php echo $_SESSION['webrk']['user']['tel2']; ?>"
@@ -353,12 +353,15 @@ $val = new input_validation();
 			</td>
       	</tr>
       	<tr>
-      		<th colspan="2">連絡用メールアドレス</th>
+      		<th colspan="2">連絡用メールアドレス<span class="text-danger">（必須)</span></th>
       		<td colspan="5">
       			<input type="text"  class="form-control" name="mail" id="mail" 
       			value="<?php echo $_SESSION['webrk']['user']['mail']; ?>"
       			style="width:70%">
       		 <p>迷惑メールの設定をされておりますと、メールが受信できませんので<br>「@xxx.xxx」のドメイン許可をお願いいたします。</p>
+      		  <br>
+              ※確認のため、再度ご入力をお願いします。<br>
+              <input type="text" name="re_mail" id="re_mail" class="form-control" value="" style="width:70%">
       		</td>
       	</tr>
         </tbody>
@@ -367,7 +370,7 @@ $val = new input_validation();
       	    <tr>
       		    <th width="5%">No.</th>
       		    <th width="15%">ご利用日</th>
-      		    <th width="30%">ご利用時間</th>
+      		    <th width="15%">ご利用時間</th>
 				<th width="15%">ご利用人数</th>
       		    <th colspan="2">施設名</th>
       	    </tr>        

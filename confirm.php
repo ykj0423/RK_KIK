@@ -106,12 +106,6 @@ jQuery(function () {
 </head>
 <body class="container">
 <?php 
-
-//echo "<br>POST";
-//print_r($_POST);
-//echo "<br>GET";
-//print_r($_GET);
-
 include("navi.php"); 
 require_once( "func.php" );
 require_once( "model/db.php" );
@@ -122,36 +116,31 @@ $conErr = $db->connect();
 if ( !empty( $conErr ) ) { echo $conErr;  die(); } //接続不可時は終了
 
 ?>
-
-   <div class="row">
-      	<div class="col-xs-6" style="padding:0">
+   	<div class="row">
+     	<div class="col-xs-6" style="padding:0">
         <h1><span class="midashi">|</span>予約申込み[確認]</h1>
-       </div>
-
+     	</div>
       	<div class="col-xs-6  text-right">
-          <span class="f120">現在の時間：　<span id="currentTime"></span></span>
-       </div>
-   </div>
-<!------------------->
-<!-- main -->
-    	<h4>入力内容をご確認頂き、問題がなければ送信ボタンを押してください。</h4>
-<!--form name="confirm_form" id="confirm_form" role="form" action="end.php"　method="post"-->
-<form class="form-horizontal" name="confirm_form" id="confirm_form" role="form" method="post" action="end.php">
+        <span class="f120">現在の時間：　<span id="currentTime"></span></span>
+		</div>
+   	</div>
+   	<h4>入力内容をご確認頂き、問題がなければ送信ボタンを押してください。</h4>
+	<form class="form-horizontal" name="confirm_form" id="confirm_form" role="form" method="post" action="end.php">
     <table id ="rsv_input" class="table table-bordered table-condensed  form-inline">
-    	    <tbody>
-                <tr><th colspan="5">お申込み内容</th></tr>
-    	        <tr>
-    		        <th colspan="2" width="20%">行事名<span class="red">（必須)</span></th>
-    		        <td colspan="3" width="70%"><?php echo $_POST[ 'kaigi' ]; ?></td>
+	    <tbody>
+            <tr><th colspan="5">お申込み内容</th></tr>
+	        <tr>
+	        	<th colspan="2" width="20%">行事名<span class="red">（必須)</span></th>
+		        <td colspan="3" width="70%"><?php echo $_POST[ 'kaigi' ]; ?></td>
 					<?php 
 						echo "<input type='hidden' name='kaigi' id='kaigi' value=\"".$_POST[ 'kaigi' ]."\">";
 						echo "<input type='hidden' name='riyokb' id='riyokb' value=\"".$_POST[ 'riyokb' ]."\">";
 						echo "<input type='hidden' name='riyokb' id='riyokb' value=\"".$_POST[ 'ninzu' ]."\">";
 					?>
-    	        </tr>
-    	        <tr>
-    		        <th colspan="2">利用目的<span class="red">（必須)</span></th>
-    		        <td colspan="3">
+	        </tr>
+	        <tr>
+		        <th colspan="2">利用目的<span class="red">（必須)</span></th>
+		        <td colspan="3">
 					<?php 
 					//利用目的はマスタから読み込む
 					if ( !empty( $_POST['riyokb'] ) ) {
@@ -164,60 +153,57 @@ if ( !empty( $conErr ) ) { echo $conErr;  die(); } //接続不可時は終了
 						}
 					
 					}
-					?></td>
-    	        </tr>
+					?>
+				</td>
+	        </tr>
     	        <!--tr>
     		        <th  colspan="2">利用人数<span class="red">（必須)</span></th>
     		        <td  colspan="2"><?php //echo $_POST['ninzu']; ?></td>
     	        </tr-->
-    	        <tr>
-    		        <th  colspan="2">団体名</th>
-    		        <td  colspan="3"><?php echo mb_convert_encoding( $_SESSION['webrk']['user']['dannm'], "utf8", "sjis" ); ?></td>
-    	        </tr>
-    	        <tr>
-					<th  colspan="2">連絡者名</th>
-		      		<td  colspan="5">
-		      			<?php echo mb_convert_encoding( $_SESSION['webrk']['user']['renraku'], "utf8", "sjis" ); ?>
-					</td>
-		      	</tr>
-		      	<tr>
-					<th  colspan="2">連絡先電話番号</th>
-		      		<td  colspan="5">
-		      			<?php echo $_SESSION['webrk']['user']['tel2']; ?>
-					</td>
-		      	</tr>
-		      	<tr>
-		      		<th colspan="2">連絡用メールアドレス</th>
-		      		<td colspan="5">
-		      			<?php echo $_SESSION['webrk']['user']['mail']; ?>
+	        <tr>
+		        <th  colspan="2">団体名</th>
+		        <td  colspan="3"><?php echo mb_convert_encoding( $_SESSION['webrk']['user']['dannm'], "utf8", "sjis" ); ?></td>
+	        </tr>
+	        <tr>
+				<th  colspan="2">連絡者名</th>
+	      		<td  colspan="5">
+		      		<?php //echo mb_convert_encoding( $_SESSION['webrk']['user']['renraku'], "utf8", "sjis" ); ?>
+		      		<?php echo $_POST['renraku']; ?>
+				</td>
+	      	</tr>
+	      	<tr>
+				<th colspan="2">連絡先電話番号</th>
+	      		<td colspan="5">
+	      			<?php echo $_SESSION['webrk']['user']['tel2']; ?>
+				</td>
+	      	</tr>
+	      	<tr>
+	      		<th colspan="2">連絡用メールアドレス</th>
+	      		<td colspan="5">
+	      			<?php echo $_SESSION['webrk']['user']['mail']; ?>
 			            <p>こちらのアドレスに予約受付のメールをお送りいたします。</p>
-    		        </td>
-    	        </tr>
-    	        <tr><th colspan="5">お申込み施設</th></tr>
-    	        <tr>
-    		        <th width="10%">No.</th>
-    		        <th width="20%">ご利用日</th>
-    		        <th width="20%">ご利用時間</th>
-					<th width="20%">人数</th>
-    		        <th>施設名</th>
-    	        </tr>
-            </tbody>
-            <tbody id="list">
-            </tbody>
-            <tbody>
-    	    <!--tr><th colspan="4">上記のうち、ひとつでも予約できなかった場合</th></tr>
-    	    <tr>
-    		    <td  colspan="4">全ての申込をキャンセルする</td>
-    	    </tr-->
-            </tbody>
-    	</table>
+		        </td>
+	        </tr>
+	        <tr>
+	        	<th colspan="5">お申込み施設</th>
+	        </tr>
+	        <tr>
+		        <th width="10%">No.</th>
+		        <th width="20%">ご利用日</th>
+		        <th width="20%">ご利用時間</th>
+				<th width="20%">人数</th>
+		        <th>施設名</th>
+	        </tr>
+        </tbody>
+        <tbody id="list">
+        </tbody>
+        </table>
 		 <div class="form-group">
 			<a class="btn btn-default btn-lg" href="input.php" role="button"><<　修正する</a>
 			<input type='submit' class="btn btn-warning btn-lg" role="button" name="submit_Click" id="submit_Click" value='送信する&nbsp;>>'>
         </div>
     </div>
 </form>
-
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>

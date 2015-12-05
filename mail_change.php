@@ -32,7 +32,7 @@ $infomsg = "";
 
 //メールアドレス
 $mail_adress = "";
-
+$change = false;
 $Kyaku = new Kyaku2();
 $mail_adress = $Kyaku->get_mail_adress( $_SESSION['wloginid'] );
 
@@ -55,6 +55,7 @@ if( empty( $_POST['regist'] ) ){
         if( $Kyaku->change_mail_adress( $_SESSION['wloginid'] , $_POST['mail'] ) ){
             $infomsg = "メールアドレスの変更が完了致しました。";
             $mail_adress = $_POST['mail'];
+            $change = true;
         }
     }
 }
@@ -63,6 +64,9 @@ if( empty( $_POST['regist'] ) ){
 include('include/err.php');
 ?>
 <p><?php echo $infomsg; ?></p><br>
+<?php 
+if(!$change){
+?>    
 <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
     <table class="table table-bordered">
         <tbody>
@@ -76,7 +80,6 @@ include('include/err.php');
         </td>
         <tr><th>新しいメールアドレス</th>
         <td>
-                    
             <input type="text" name="mail" style="width:60%" value=""><a class="btn btn-danger btn-xs" role="button" href="#">テストメール送信</a><br>
             <span class="text-danger">※ご注意ください※</span><br>
                 ※「テスト送信」ボタンを押しすと、テストメールが送信されます。<br>メールが正しく届くかどうかを事前に確認するためにご利用ください。<br>
@@ -97,7 +100,12 @@ include('include/err.php');
         </tr>
         </tbody>
     </table>
-    <input type="submit" class="btn btn-primary" role="button" name="regist" value="このアドレスで登録する"><br><br>
+<?php 
+}
+?>    
+    <input type="submit" class="btn btn-primary" role="button" name="regist" value="変更する"><br><br>
 </form>
+<a class="btn btn-default btn-lg" href="top.php" role="button">トップページに戻る</a>
+<a class="btn btn-default btn-lg" href="member.php" role="button">戻る</a>
 </body>
 </html>

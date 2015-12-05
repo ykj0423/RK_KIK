@@ -35,8 +35,23 @@ include("navi.php");
        </div>
    </div><br>
 	<h4>以下の予約を取消してもよろしいですか？</h4>
+	・取り消し内容は申し込み時のメールアドレス宛に送信されます。<br>
+	・使用日の1週間以内の取消は、使用料の全額をお支払いただきます。入金済みの場合も返還いたしかねます。未入金の場合は、窓口へお越しいただき、お支払いくださいますようお願いいたします。<br>
+	（ホール等のキャンセル料は別途規定が適用されます。）<br>
   <table id ="rsv_input" class="table table-bordered  table-condensed  form-inline">
 <?php  	
+
+if (!empty($_POST['submit_Click'])){
+	
+	if(empty($_POST['del'])){
+    	header('location: rsvlist.php');
+    	exit();
+	}else{
+	//	alert("取り消しをする予約を選択してください");
+	}
+
+}
+
 //削除画面のパラーメータ
 $serverName = "WEBRK\SQLEXPRESS";
 $connectionInfo = array( "Database"=>"RK_KIK_DB1", "UID"=>"sa", "PWD"=>"Webrk_2015" );
@@ -45,7 +60,7 @@ $conn = sqlsrv_connect( $serverName, $connectionInfo );
 if( $conn === false ) {
      die( print_r( sqlsrv_errors(), true));
 }
-
+//print_r($_POST);
 for( $i=0; $i <count( $_POST['del']); $i++ ){
 		
 	$index =  $_POST['del'][$i];
@@ -54,7 +69,7 @@ for( $i=0; $i <count( $_POST['del']); $i++ ){
 	$sql = $sql." left outer join mt_room on dt_roomrmei.rmcd = mt_room.rmcd ";
 	$sql = $sql." WHERE dt_roomrmei.ukeno=".$_POST['ukeno'.$index]." AND dt_roomrmei.gyo=".$_POST['gyo'.$index];
 	//$params = array( $_POST['ukeno'.$i], $_POST['gyo'.$i]);
-	
+//echo $sql;	
 	$stmt = sqlsrv_query( $conn, $sql );
 	$j = 0;
 	
@@ -87,7 +102,7 @@ for( $i=0; $i <count( $_POST['del']); $i++ ){
 		echo "<tr>";
 		$j = $i+1;
 		echo "<td>".$j."</td>";
-		echo "<td>".substr( $row['udate'], 0, 4 )."/".substr( $row['udate'], 4, 2 )."/".substr( $row['udate'], 6, 2 );
+		echo "<td>".substr( $row['usedt'], 0, 4 )."/".substr( $row['usedt'], 4, 2 )."/".substr( $row['usedt'], 6, 2 );
 		echo "(".mb_convert_encoding( $row['yobi'], "utf8", "sjis" ).")</td>";
 		echo "<td>".$row['stjkn']."～".$row['edjkn']."</td>";
 		echo "<td>".mb_convert_encoding( $row['rmnm'], "utf8", "sjis" )."</td>";
@@ -108,7 +123,9 @@ for( $i=0; $i <count( $_POST['del']); $i++ ){
 	echo "<input type='hidden' name='meisai_count' id='meisai_count'  value=\"".count( $_POST['del'] )."\">";//件数
 ?>
 		<h4 class="red">！！　一度取り消した申込は、もとに戻すことはできません　！！</h4>
-		<a class="btn btn-default btn-lg" href="top.php" role="button">戻る</a>
+		<a class="btn btn-default btn-lg" href="top.php" role="button">トップページへ戻る</a>
+		<a class="btn btn-default btn-lg" href="rsvlist.php" role="button">戻る</a>
+	
 		<input type='submit' class="btn btn-warning btn-lg" role="button" name="submit_Click" id="submit_Click" value="取消を確定する&nbsp;>>">
 	</form>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

@@ -228,14 +228,20 @@
         var strlist = new Array();
 
 		/* 予約状態の復元 */		
-		/*var objData = JSON.parse(localStorage.getItem("sentaku"));//選択リスト
+		var objData = JSON.parse(localStorage.getItem("sentaku"));//選択リスト
+		
 		if( objData != null){
-			for ( var i=0; i < objData.length; i++ ){
+			
+			for ( var i=0; i < objData.length ; i++ ){
 				var  lnkstr = objData[i]['key'];
 				var imgstr = lnkstr.replace('a-', 'img-');
 				$("#" + imgstr).attr('src', 'icon/sentaku.png');
+				//strlist.push(data);
 			}
-		}*/
+            
+            //localStorage.setItem('sentaku', JSON.stringify(strlist));
+		}
+
 		/* 空室・選択クリック時 */
         $("a").click(function () {
 			
@@ -256,7 +262,9 @@
 			
 			if (src == 'icon/kara.jpg') {	//空室選択時
 
-                $("#" + imgstr).attr('src', 'icon/sentaku.png');
+                //$("#" + imgstr).attr('src', 'icon/sentaku.png');
+                //$("#" + imgstr).attr('src', 'icon/maru.jpg');
+                
                 //オブジェクトからJSONに直して格納する
                 var data = {
                     key: lnkstr,
@@ -270,7 +278,7 @@
 					ninzu: 0,
                     value: 1
                 }
-                strlist.push(data);
+                
                 //var list = JSON.parse(localStorage.getItem("sentaku"));//選択リスト
 				//9件/月にすべきか
 				for ( var i=0; i < strlist.length; i++ ){
@@ -278,17 +286,53 @@
 					//alert(wkey);				
 				}
 				
-				if(strlist.length>9){
+				if(strlist.length > 8){
 					alert("一度に9枠を超えるお申し込みは受け付けできません");
+					return false;
 				}else{
-					localStorage.setItem('sentaku', JSON.stringify(strlist));
+
+					$("#" + imgstr).attr('src', 'icon/sentaku.png');
+					strlist.push(data);
+                	localStorage.setItem('sentaku', JSON.stringify(strlist));
+
 				}
+
             } else {	//選択解除時
 				$("#" + imgstr).attr('src', 'icon/kara.jpg');
-                strlist.some(function (v, i) {
-                    if (v.key == lnkstr) strlist.splice(i, 1); //key:lnkstrの要素を削除
-                });
-                localStorage.setItem('sentaku', JSON.stringify(strlist));
+
+				var wklist = JSON.parse(localStorage.getItem("sentaku"));//ワークリスト
+                
+                for ( var i=0; i < wklist.length; i++ ){
+				//画像差し替え
+				var  wkey = wklist[i]['key'];			
+				if ( wkey == lnkstr) {
+					//alert(wkey);
+					var imgstr = wkey.replace('a-', 'img-');			
+					$("#" + imgstr).attr('src', 'icon/kara.jpg');
+				
+					//strlistから一つ一つ要素を削除してゆく
+					wklist.some(function (v, i) {
+						if (v.key == wkey) wklist.splice(i, 1); //key:lnkstrの要素を削除
+					});
+					//strlistの更新
+					localStorage.setItem('sentaku', JSON.stringify(wklist));
+				}
+				
+			}
+			//ローカルストレージstrlistクリア
+			//localStorage.removeItem('sentaku', JSON.stringify(strlist));
+			//現在の選択件数の更新
+			$(".selcnt").text("現在の選択 ： " + strlist.length + "件");
+
+                //strlist.some(function (v, i) {
+
+                //    if (v.key == lnkstr) {
+                //    	alert(lnkstr);
+                //    	strlist.splice(i, 1); 
+                //    }//key:lnkstrの要素を削除
+                
+                //});
+                //localStorage.setItem('sentaku', JSON.stringify(strlist));
 			}
 
 			//現在の選択件数の更新
@@ -625,12 +669,12 @@ for ($i = 0; $i < ( count( $room ) ) ; $i++ ) {
     /* 3行ごとにテーブル仕切り（最終行は表示しない） */
     if ( ( ( $i % 3 ) == 2 ) && ( $i <  ( count( $room ) -1 ) ) ) {
         
-        echo "</table>";
-        echo "<p class=\"text-right\">";
-		echo "<input type='submit' class=\"btn btn-default mr48p prev\" href=\"#\" role=\"button\" value=\"<<前へ\"></a>";
-		echo "<input type='submit' class=\"btn btn-default mr20\ next\" href=\"#\" role=\"button\" value=\"次へ>>\"></a>";
-        echo "</p>";
-        echo "<table  class=\"table table-bordered table-condensed rsv\">";
+        //echo "</table>";
+        //echo "<p class=\"text-right\">";
+		//echo "<input type='submit' class=\"btn btn-default mr48p prev\" href=\"#\" role=\"button\" value=\"<<前へ\"></a>";
+		//echo "<input type='submit' class=\"btn btn-default mr20\ next\" href=\"#\" role=\"button\" value=\"次へ>>\"></a>";
+        //echo "</p>";
+        //echo "<table  class=\"table table-bordered table-condensed rsv\">";
   	    echo "<tr class=\"head\">";
         echo "<th colspan=\"2\" rowspan=\"3\" width=\"300\">施設名</th>";
 		

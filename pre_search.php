@@ -26,7 +26,7 @@
 </head>
 <body class="container">
 <?php
-include( "navi.php" ); 
+//include( "navi.php" ); 
 require_once( "func.php" );
 require_once( "model/db.php" );
 
@@ -212,18 +212,12 @@ for ($i = 0; $i < ( count( $room ) ) ; $i++ ) {
 		
 		if( $mor['data'][$usedt]  == 0 ){
 		//空室の場合
-			
 			echo "<td  class=\"can\">";
             echo "<img src=\"icon/kara.jpg\" alt=\"空\" class=\"mark\" id=\"img-".$rmcd.$usedt."1\">";
-            //各種定数化。
-			//echo "<div id=\"data-".$rmcd.$usedt."1\" data-usedt=\"".$usedt."\" data-yobi=".$k." data-timekb=\"1\" data-jkn1=\"9:00\" data-jkn2=\"12:00\" data-rmcd=\"".$rmcd."\" data-rmnm=\"".$rmnm."\" />";
             echo "</td>";
-        
 		}else{
 		//満室の場合
-        
 			echo "<td>×</td>";
-        
 		}
 
     }
@@ -236,14 +230,11 @@ for ($i = 0; $i < ( count( $room ) ) ; $i++ ) {
 
     for ( $k = 0; $k < count( $date_array ) ; $k++ ) {
 
-        //$usedt = str_replace( "/", "", $sttdt ) + $k ;//仮
 		$usedt = str_replace( "/", "", $date_array[$k]['yyyy'].$date_array[$k]['mm'].$date_array[$k]['dd'] );
 
         if ($noon['data'][$usedt] == 0) {
-            //echo "<td  class=\"can\"><a href=\"#\"><img src=\"icon/kara.jpg\"></a></td>";
 			echo "<td  class=\"can\">";
             echo "<img src=\"icon/kara.jpg\" alt=\"空\" class=\"mark\" id=\"img-".$rmcd.$usedt."2\">";
-            //echo "<div id=\"data-".$rmcd.$usedt."2\" data-usedt=\"".$usedt."\" data-timekb=\"2\" data-jkn1=\"13:00\" data-jkn2=\"17:00\" data-rmcd=\"".$rmcd."\" data-rmnm=\"".$rmnm."\" />";
             echo "</td>";
         }else{
             echo "<td>×</td>";
@@ -257,19 +248,15 @@ for ($i = 0; $i < ( count( $room ) ) ; $i++ ) {
     echo "<tr class=\"dgray\"  style=\" border-bottom: 2px solid;\">";
     echo "<th>夜</th>";
     
-	//$night = $db->select_ksjkntai( $rmcd , 3 , $sttdt , $enddt );
     $night = $db->select_ksjkntai( $rmcd , 3 ,  str_replace( "/", "", $sttdt ) ,  str_replace( "/", "", $enddt ) );
 
 	for ( $k = 0; $k < count( $date_array ) ; $k++ ) {
 
-        //$usedt = str_replace( "/", "", $sttdt ) + $k ;//仮
 		$usedt = str_replace( "/", "", $date_array[$k]['yyyy'].$date_array[$k]['mm'].$date_array[$k]['dd'] );
         
 		if ($night['data'][$usedt] == 0) {
-            //echo "<td  class=\"can\"><a href=\"#\"><img src=\"icon/kara.jpg\"></a></td>";
 			echo "<td  class=\"can\">";
             echo "<img src=\"icon/kara.jpg\" alt=\"空\" class=\"mark\" id=\"img-".$rmcd.$usedt."3\">";
-            //echo "<div id=\"data-".$rmcd.$usedt."3\" data-usedt=\"".$usedt."\" data-timekb=\"3\" data-jkn1=\"17:30\" data-jkn2=\"21:00\" data-rmcd=\"".$rmcd."\" data-rmnm=\"".$rmnm."\" />";
             echo "</td>";			
         }else{
             echo "<td>×</td>";
@@ -282,12 +269,12 @@ for ($i = 0; $i < ( count( $room ) ) ; $i++ ) {
     /* 3行ごとにテーブル仕切り（最終行は表示しない） */
     if ( ( ( $i % 3 ) == 2 ) && ( $i <  ( count( $room ) -1 ) ) ) {
         
-        echo "</table>";
-        echo "<p class=\"text-right\">";
-		echo "<input type='submit' class=\"btn btn-default mr48p prev\" href=\"#\" role=\"button\" value=\"<<前へ\"></a>";
-		echo "<input type='submit' class=\"btn btn-default mr20\ next\" href=\"#\" role=\"button\" value=\"次へ>>\"></a>";
-        echo "</p>";
-        echo "<table  class=\"table table-bordered table-condensed rsv\">";
+        //echo "</table>";
+        //echo "<p class=\"text-right\">";
+		//echo "<input type='submit' class=\"btn btn-default mr48p prev\" href=\"#\" role=\"button\" value=\"<<前へ\"></a>";
+		//echo "<input type='submit' class=\"btn btn-default mr20\ next\" href=\"#\" role=\"button\" value=\"次へ>>\"></a>";
+        //echo "</p>";
+        //echo "<table  class=\"table table-bordered table-condensed rsv\">";
   	    echo "<tr class=\"head\">";
         echo "<th colspan=\"2\" rowspan=\"3\" width=\"300\">施設名</th>";
 		
