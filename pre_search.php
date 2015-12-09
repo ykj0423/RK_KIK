@@ -23,7 +23,34 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.datetimepicker.js"></script>
 <script src="js/custom.js"></script>
-</head>
+<script>
+    jQuery(function () {
+
+        jQuery('#date_timepicker_start').datetimepicker({
+            format: 'Y/m/d',
+            lang: 'ja',
+            //startDate: new Date(),
+            //defaultDate: new Date(),
+            onShow: function (ct) {
+                this.setOptions({
+                    maxDate: jQuery('#date_timepicker_end').val() ? jQuery('#date_timepicker_end').val() : false
+                })
+            },
+            timepicker: false
+        });
+    //初期値は？
+    jQuery('#date_timepicker_end').datetimepicker({
+            format: 'Y/m/d',
+            lang: 'ja',
+            onShow: function (ct) {
+                this.setOptions({
+                    minDate: jQuery('#date_timepicker_start').val() ? jQuery('#date_timepicker_start').val() : false
+                })
+            },
+            timepicker: false
+        });
+ });
+</script></head>
 <body class="container">
 <?php
 //include( "navi.php" ); 
@@ -88,7 +115,6 @@ for ($i = 0; $i < ( count( $rmcls['data'] ) ) ; $i++ ) {
 
 }
 
-
 ?>
                     </td>       
                     </div><!--// form-group -->
@@ -101,10 +127,10 @@ for ($i = 0; $i < ( count( $rmcls['data'] ) ) ; $i++ ) {
 /* 検索日付（自至） */
 //検索開始日
 if( !empty ( $_POST['search_ymd_stt'] ) ){
-	$sttdt = $_POST['search_ymd_stt'] ; 
+  $sttdt = $_POST['search_ymd_stt'] ; 
 }else{
 	//初期値
-	$sttdt = date("Y/m/d"); 
+  $sttdt = date("Y/m/d"); 
 }
 
 //検索終了日
@@ -138,13 +164,12 @@ if( count( $_POST[ 'yobi' ] ) > 0 ){
 				</tr>
 			</tbody>
 		</table>    
-        <hr>
+    <hr>
     </div><!--// srch -->
 </form>
 
 	<!--検索結果-->
 	<p>特目室とは、美術室・料理教室などの特定の目的でご利用いただく部屋です。ただし、館によって、ご利用いただける特目室は異なります。</p>
-    
     <div id="result">
 		<div class="row mb10">
 		</div>
@@ -185,10 +210,10 @@ $room = $db->get_mt_roomr( $bunrui );//施設区分
 
 for ($i = 0; $i < ( count( $room ) ) ; $i++ ) {
 	
-	$rmcd = $room[ $i ][ 'rmcd' ];   			//施設コード
+  $rmcd = $room[ $i ][ 'rmcd' ];   			//施設コード
 	$rmnm = mb_convert_encoding($room[ $i ][ 'rmnmw' ], "utf8", "SJIS");//施設名称
-    $teiin = ltrim( $room[ $i ][ 'capacity' ], '0' );	//定員
-    $weblink = $room[ $i ][ 'weblink' ];   			//施設情報
+  $teiin = ltrim( $room[ $i ][ 'capacity' ], '0' );	//定員
+  $weblink = $room[ $i ][ 'weblink' ];   			//施設情報
 
 	echo "<tr class=\"dgray\">";
     //施設情報
